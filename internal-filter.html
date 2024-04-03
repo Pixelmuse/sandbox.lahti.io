@@ -25,7 +25,7 @@
             flex-direction: column;
             text-align: center;
         }
-        h1, .joke, .back-link, #cookies-list {
+        h1, .joke, .back-link, #cookie-info {
             margin: 20px 0;
         }
         .joke {
@@ -50,8 +50,19 @@
             list-style: none; /* Removes bullet points */
             margin-top: 10px;
         }
-        #no-cookies-message {
-            color: #ffcc00; /* Yellow text for the message */
+        #cookie-info {
+            text-align: center;
+            border: 2px dashed #ffffff; /* Dashed border for styling */
+            padding: 10px;
+            margin: 20px;
+            border-radius: 10px; /* Rounded corners for the border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            display: inline-block; /* Center content in a block */
+            background-color: #000000a0; /* Slightly transparent background */
+        }
+        #cookie-title {
+            color: #ffc107; /* Golden color to stand out */
+            margin-bottom: 10px; /* Space above the list */
         }
     </style>
 </head>
@@ -66,16 +77,22 @@
     <p class="joke">How do you comfort a JavaScript bug? You console it.</p>
 
     <!-- Cookies display section -->
-    <ul id="cookies-list"></ul>
+    <div id="cookie-info">
+        <h2 id="cookie-title"></h2>
+        <ul id="cookies-list"></ul>
+    </div>
 
     <script>
         function displayCookies() {
             const cookies = document.cookie.split('; ');
             const listElement = document.getElementById('cookies-list');
+            const titleElement = document.getElementById('cookie-title');
 
             if (!cookies[0]) {
-                listElement.innerHTML = '<li id="no-cookies-message">The site has not dropped any first-party cookies.</li>';
+                titleElement.textContent = "No crumbs here!";
+                listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
             } else {
+                titleElement.textContent = "Cookie Jar Contents:";
                 cookies.forEach(cookie => {
                     const item = document.createElement('li');
                     item.textContent = cookie;
