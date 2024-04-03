@@ -25,30 +25,34 @@
             flex-direction: column;
             text-align: center;
         }
-        h1 {
-            font-size: 3em;
+        h1, .joke, .back-link, #cookies-list {
             margin: 20px 0;
-        }
-        p {
-            font-size: 1.2em;
-            margin: 10px 0;
-            max-width: 600px;
         }
         .joke {
             font-size: 1.4em;
             font-style: normal;
-            background-color: #ffc107; /* Golden yellow background for the joke */
+            background-color: #ffc107; /* Golden yellow background */
             color: #333; /* Dark text for contrast */
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-            .back-link {
-        font-size: 1.2em;
-        color: #00ffcc; /* A different, lighter color for contrast and visibility */
-        text-decoration: underline; /* Makes it clear it's a clickable link */
-        margin-top: 40px; /* Adds space between this link and the joke paragraph */
-    }
+        .back-link {
+            font-size: 1.2em;
+            color: #00ffcc; /* Light cyan color */
+            text-decoration: underline;
+        }
+        #cookies-list li {
+            background-color: #ffffff; /* White background for visibility */
+            color: #007bff; /* Blue text for readability */
+            padding: 5px;
+            border-radius: 5px;
+            list-style: none; /* Removes bullet points */
+            margin-top: 10px;
+        }
+        #no-cookies-message {
+            color: #ffcc00; /* Yellow text for the message */
+        }
     </style>
 </head>
 <body>
@@ -60,6 +64,29 @@
     <h1>Welcome to the Internal Filter!</h1>
     <p>Preparing your exclusive internal user access...</p>
     <p class="joke">How do you comfort a JavaScript bug? You console it.</p>
-<p><a href="https://sandbox.lahti.io" class="back-link">Return to Sandbox</a></p>
+
+    <!-- Cookies display section -->
+    <ul id="cookies-list"></ul>
+
+    <script>
+        function displayCookies() {
+            const cookies = document.cookie.split('; ');
+            const listElement = document.getElementById('cookies-list');
+
+            if (!cookies[0]) {
+                listElement.innerHTML = '<li id="no-cookies-message">The site has not dropped any first-party cookies.</li>';
+            } else {
+                cookies.forEach(cookie => {
+                    const item = document.createElement('li');
+                    item.textContent = cookie;
+                    listElement.appendChild(item);
+                });
+            }
+        }
+
+        displayCookies();
+    </script>
+
+    <p><a href="https://sandbox.lahti.io" class="back-link">Return to Sandbox</a></p>
 </body>
 </html>
