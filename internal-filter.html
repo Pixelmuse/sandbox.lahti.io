@@ -81,28 +81,30 @@
         <h2 id="cookie-title"></h2>
         <ul id="cookies-list"></ul>
     </div>
+<script>
+    function displayCookies() {
+        const cookies = document.cookie.split('; ');
+        const listElement = document.getElementById('cookies-list');
+        const titleElement = document.getElementById('cookie-title');
 
-    <script>
-        function displayCookies() {
-            const cookies = document.cookie.split('; ');
-            const listElement = document.getElementById('cookies-list');
-            const titleElement = document.getElementById('cookie-title');
-
-            if (!cookies[0]) {
-                titleElement.textContent = "No crumbs here!";
-                listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
-            } else {
-                titleElement.textContent = "Cookie Jar Contents:";
-                cookies.forEach(cookie => {
-                    const item = document.createElement('li');
-                    item.textContent = cookie;
-                    listElement.appendChild(item);
-                });
-            }
+        if (!cookies[0] || cookies.length === 1 && cookies[0] === "") {
+            titleElement.textContent = "No crumbs here!";
+            listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
+        } else {
+            titleElement.textContent = "Cookie Jar Contents:";
+            cookies.forEach(cookie => {
+                const item = document.createElement('li');
+                item.textContent = cookie.split('=')[0]; // Display only the cookie name for readability
+                listElement.appendChild(item);
+            });
         }
+    }
 
-        displayCookies();
-    </script>
+    // Delay the display of cookies by a few seconds
+    window.addEventListener('load', function() {
+        setTimeout(displayCookies, 4000); // Adjust the time as needed
+    });
+</script>
 
     <p><a href="https://sandbox.lahti.io" class="back-link">Return to Sandbox</a></p>
 </body>
