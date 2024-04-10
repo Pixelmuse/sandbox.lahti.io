@@ -11,7 +11,12 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-T5PSMGB');</script>
     <!-- End Google Tag Manager -->
+    
+<script>
+    console.log('🚀 AE ROCKS! 🎸');
+</script>
     <style>
+
         body {
             font-family: 'Courier New', monospace;
             background-color: #007bff; /* Blue background color */
@@ -82,40 +87,36 @@
         <ul id="cookies-list"></ul>
     </div>
 
-    <script>
-    function displayCookies() {
-        const cookies = document.cookie.split('; ').filter(c => c.trim() !== "");
-        const listElement = document.getElementById('cookies-list');
-        const titleElement = document.getElementById('cookie-title');
-
-        if (cookies.length === 0) {
-            titleElement.textContent = "No crumbs here!";
-            listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
-        } else {
-            titleElement.textContent = "Cookie Jar Contents:";
-            cookies.forEach(cookie => {
-                const item = document.createElement('li');
-                item.textContent = cookie.split('=')[0]; // Display only the cookie name for readability
-                listElement.appendChild(item);
-            });
-        }
-    }
-
-    // Listener for the custom GTM event
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-        'event': 'customDataLayerEvent',
-        'eventCallback': function() {
-            displayCookies();
-        }
-    });
-
-    // Fallback in case GTM fails to load
-    setTimeout(displayCookies, 4000);
-</script>
 <script>
-    console.log('🚀 AE ROCKS! 🎸');
+  function displayCookies() {
+    // Clear previous cookie list
+    document.getElementById('cookies-list').innerHTML = '';
+    const cookies = document.cookie.split('; ').filter(c => c.trim() !== "");
+    const listElement = document.getElementById('cookies-list');
+    const titleElement = document.getElementById('cookie-title');
+
+    if (cookies.length === 0) {
+        titleElement.textContent = "No crumbs here!";
+        listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
+    } else {
+        titleElement.textContent = "Cookie Jar Contents:";
+        cookies.forEach(cookie => {
+            const item = document.createElement('li');
+            item.textContent = cookie.split('=')[0]; // Display only the cookie name for readability
+            listElement.appendChild(item);
+        });
+    }
+  }
+
+  // Delay the display of cookies by a few seconds
+  window.addEventListener('load', function() {
+      // Clear any previous cookie list to avoid duplicates
+      document.getElementById('cookies-list').innerHTML = '';
+      // Call displayCookies function after a delay
+      setTimeout(displayCookies, 4000); // Adjust the time as needed
+  });
 </script>
+
 
     
 
