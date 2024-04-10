@@ -81,13 +81,14 @@
         <h2 id="cookie-title"></h2>
         <ul id="cookies-list"></ul>
     </div>
-<script>
+
+    <script>
     function displayCookies() {
-        const cookies = document.cookie.split('; ');
+        const cookies = document.cookie.split('; ').filter(c => c.trim() !== "");
         const listElement = document.getElementById('cookies-list');
         const titleElement = document.getElementById('cookie-title');
 
-        if (!cookies[0] || cookies.length === 1 && cookies[0] === "") {
+        if (cookies.length === 0) {
             titleElement.textContent = "No crumbs here!";
             listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
         } else {
@@ -100,11 +101,20 @@
         }
     }
 
-    // Delay the display of cookies by a few seconds
-    window.addEventListener('load', function() {
-        setTimeout(displayCookies, 4000); // Adjust the time as needed
+    // Listener for the custom GTM event
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'customDataLayerEvent',
+        'eventCallback': function() {
+            displayCookies();
+        }
     });
+
+    // Fallback in case GTM fails to load
+    setTimeout(displayCookies, 4000);
 </script>
+
+    
 
     <p><a href="https://sandbox.lahti.io" class="back-link">Return to Sandbox</a></p>
 </body>
