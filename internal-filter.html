@@ -89,32 +89,34 @@
 
 <script>
   function displayCookies() {
-    // Clear previous cookie list
-    document.getElementById('cookies-list').innerHTML = '';
     const cookies = document.cookie.split('; ').filter(c => c.trim() !== "");
     const listElement = document.getElementById('cookies-list');
     const titleElement = document.getElementById('cookie-title');
 
+    // Clear out any previous list of cookies
+    listElement.innerHTML = '';
+
     if (cookies.length === 0) {
-        titleElement.textContent = "No crumbs here!";
-        listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
+      titleElement.textContent = "No crumbs here!";
+      listElement.innerHTML = '<li>The site has not dropped any first-party cookies.</li>';
     } else {
-        titleElement.textContent = "Cookie Jar Contents:";
-        cookies.forEach(cookie => {
-            const item = document.createElement('li');
-            item.textContent = cookie.split('=')[0]; // Display only the cookie name for readability
-            listElement.appendChild(item);
-        });
+      titleElement.textContent = "Cookie Jar Contents:";
+      const uniqueCookies = new Set(); // Helper to track unique cookies
+
+      cookies.forEach(cookie => {
+        const cookieName = cookie.split('=')[0]; // Get the cookie name
+        if (!uniqueCookies.has(cookieName)) {
+          uniqueCookies.add(cookieName);
+          const item = document.createElement('li');
+          item.textContent = cookieName; // Display only the cookie name for readability
+          listElement.appendChild(item);
+        }
+      });
     }
   }
 
-  // Delay the display of cookies by a few seconds
-  window.addEventListener('load', function() {
-      // Clear any previous cookie list to avoid duplicates
-      document.getElementById('cookies-list').innerHTML = '';
-      // Call displayCookies function after a delay
-      setTimeout(displayCookies, 4000); // Adjust the time as needed
-  });
+  // Call displayCookies function after a delay
+  setTimeout(displayCookies, 4000); // Adjust the time as needed
 </script>
 
 
